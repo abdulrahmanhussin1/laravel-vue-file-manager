@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +17,17 @@ use Inertia\Inertia;
 |
 */
 
+
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {return Inertia::render('Dashboard');})->name('dashboard');
+    Route::get('/my-files',[FileController::class,'myFiles'])->name('myFiles');
+    Route::post('/folder/create',[FileController::class,'createFolder'])->name('folder.createFolder');
+
+});
+
+
+
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -24,10 +36,6 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
-
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

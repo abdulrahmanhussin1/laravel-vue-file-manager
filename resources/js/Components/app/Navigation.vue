@@ -6,12 +6,12 @@
             <ApplicationLogo class="block w-auto h-9 fill-current text-gray-800" />
             </Link>
 
-            Local Storage
+            LaraStorage
         </div>
         <div class="px-">
             <CreateNewDropdown />
             <div class="py-3">
-                <NavLink href="/">My Files</NavLink>
+                <NavLink :href="route('myFiles')" :active="$page.url == '/my-files'">My Files</NavLink>
                 <NavLink href="/">Shared with me</NavLink>
                 <NavLink href="/">Shared by me</NavLink>
                 <NavLink href="/">Trash</NavLink>
